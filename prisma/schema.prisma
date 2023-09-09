@@ -1,0 +1,50 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Course {
+  id          String      @default(cuid()) @id
+  name        String
+  professor   Professor   @relation(fields: [professorId], references: [id])
+  professorId String
+  posts       Post[]      @relation("PostsOnCourse")
+  students    Student[]
+  createdAt   DateTime    @default(now()) @map(name: "created_at")
+}
+
+model Post {
+  id        String        @default(cuid()) @id
+  title     String
+  content   String?
+  course     Course       @relation("PostsOnCourse", fields: [courseId], references: [id])
+  courseId   String
+  author    Professor     @relation("WrittenPosts", fields: [authorId], references: [id])
+  authorId  String
+  createdAt DateTime      @default(now()) @map(name: "created_at")
+  updatedAt DateTime      @updatedAt @map(name: "updated_at")
+}
+
+model Student {
+  id    String        @default(cuid()) @id
+  name  String
+  studentId String    @unique @map(name: "student_id")
+  courses Course[]
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+}
+
+model Professor {
+  id      String      @default(cuid()) @id
+  name    String
+  professorId String  @unique @map(name: "professor_id")
+  courses Course[]
+  posts Post[]        @relation("WrittenPosts")
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+}
