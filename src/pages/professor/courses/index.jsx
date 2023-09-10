@@ -29,14 +29,16 @@ export default function ProfCoursesPage() {
 
 	const onClickCreateCourse = (e) => {
 		e.preventDefault();
-		fetch(`/api/courses`, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ professorId: id, name: newCourseName }),
-		}).then((res) => {
-			if (res.status === 200) router.reload();
-			else alert("강의 개설에 실패했습니다.");
-		});
+		if (newCourseName) {
+			fetch(`/api/courses`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ professorId: id, name: newCourseName }),
+			}).then((res) => {
+				if (res.status === 200) router.reload();
+				else alert("강의 개설에 실패했습니다.");
+			});
+		}
 	};
 
 	return (

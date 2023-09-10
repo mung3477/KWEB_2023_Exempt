@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function SignUpForm() {
+	const router = useRouter();
 	const [id, setId] = useState("");
 	const [password, setPassword] = useState("");
 	const [name, setName] = useState("");
@@ -36,6 +38,7 @@ export default function SignUpForm() {
 			})
 			.then((err) => {
 				if (err) alert(err.message);
+				else router.push("/");
 			});
 	};
 	return (
