@@ -33,7 +33,7 @@ export default function SignInForm() {
 				else {
 					console.log(data);
 					setUser(data);
-					router.push(`${data.role.toLowerCase()}/courses`);
+					router.push(`courses`);
 				}
 			});
 	};
