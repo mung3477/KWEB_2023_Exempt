@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { useAuthStore } from "@/stores/auth";
 
 export default function SignInForm() {
+	const router = useRouter();
 	const [id, setId] = useState("");
 	const [password, setPassword] = useState("");
+	const setUser = useAuthStore((state) => state.setUser);
 
 	const onChangeId = (e) => setId(e.target.value);
 	const onChangePassword = (e) => setPassword(e.target.value);
@@ -26,7 +30,11 @@ export default function SignInForm() {
 			})
 			.then((data) => {
 				if (data.message) alert(data.message);
-				else console.log(data);
+				else {
+					console.log(data);
+					setUser(data);
+					router.push(`${data.role.toLowerCase()}/courses`);
+				}
 			});
 	};
 	return (
