@@ -1,7 +1,7 @@
-import { GETCourses } from "@/app/api/courses/route";
+import { server } from "config/server";
 
 export default async function CoursesPage() {
-	const res = await GETCourses();
+	const res = await fetch(`${server}/student/courses`);
 	const { courses } = await res.json();
 
 	return (
