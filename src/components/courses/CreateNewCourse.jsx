@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useAuthStore } from "@/stores/auth";
 
 export default function CreateNewCourse() {
 	const router = useRouter();
+	const { id } = useAuthStore((state) => state);
 	const [newCourseName, setNewCourseName] = useState("");
 
 	const onChangeNewCourseName = (e) => setNewCourseName(e.target.value);
