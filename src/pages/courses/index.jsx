@@ -6,7 +6,7 @@ import { useAuthStore } from "@/stores/auth";
 let fetchedOnlyMine = false;
 
 export default function ProfCoursesPage() {
-	const { id, role } = useAuthStore((state) => state);
+	const { id, role, infoId } = useAuthStore((state) => state);
 	const [fetchOnlyMine, setFetchOnlyMine] = useState(false);
 	const [courses, setCourses] = useState([]);
 
@@ -51,6 +51,26 @@ export default function ProfCoursesPage() {
 		}
 	};
 
+	const onClickEnroll = (courseName, professorId) => () => {
+		const data = {
+			courseName,
+			professorId,
+			studentId: infoId,
+		};
+
+		fetch(`/api/courses/mine`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(data),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.message) {
+					alert(data.message);
+				} else alert("수강신청 완료!");
+			});
+	};
+
 	return (
 		<>
 			<h1>{fetchedOnlyMine ? "내 " : ""}강의 목록</h1>
@@ -60,6 +80,17 @@ export default function ProfCoursesPage() {
 						<Link href={`/courses/${course.name}`}>
 							{course.name}
 						</Link>
+						{role === "STUDENT" && (
+							<button
+								type="button"
+								onClick={onClickEnroll(
+									course.name,
+									course.professorId
+								)}
+							>
+								수강신청
+							</button>
+						)}
 					</li>
 				))}
 			</ul>
