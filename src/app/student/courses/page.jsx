@@ -1,8 +1,9 @@
 import { server } from "config/server";
 
 export default async function CoursesPage() {
-	const res = await fetch(`${server}/student/courses`);
-	const { courses } = await res.json();
+	const res = await fetch(`${server}/api/courses`);
+	console.log(res);
+	const { result: courses } = await res.json();
 
 	return (
 		<ul>
