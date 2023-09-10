@@ -11,40 +11,42 @@ datasource db {
 }
 
 model Course {
-  id          String      @default(cuid()) @id
+  id          Int      @default(autoincrement()) @id
   name        String
-  professor   Professor   @relation(fields: [professorId], references: [id])
+  professor   User   @relation("professor", fields: [professorId], references: [id])
   professorId String
   posts       Post[]      @relation("PostsOnCourse")
-  students    Student[]
+  students    User[]      @relation("attended")
   createdAt   DateTime    @default(now()) @map(name: "created_at")
+
+  @@unique([id, professorId])
 }
 
 model Post {
   id        String        @default(cuid()) @id
   title     String
   content   String?
-  course     Course       @relation("PostsOnCourse", fields: [courseId], references: [id])
-  courseId   String
-  author    Professor     @relation("WrittenPosts", fields: [authorId], references: [id])
+  course     Course       @relation("PostsOnCourse", fields: [courseId, authorId], references: [id, professorId])
+  courseId   Int
   authorId  String
   createdAt DateTime      @default(now()) @map(name: "created_at")
   updatedAt DateTime      @updatedAt @map(name: "updated_at")
 }
 
-model Student {
-  id    String        @default(cuid()) @id
-  name  String
-  studentId String    @unique @map(name: "student_id")
-  courses Course[]
+model User {
+  id  String  @id
+  password String
+  name String
+  infoId  Int @map(name: "info_id")
+  role  Role  @default(STUDENT)
   createdAt DateTime  @default(now()) @map(name: "created_at")
+  teached Course[] @relation("professor")
+  attended Course[] @relation("attended")
+
+  @@unique([infoId, role])
 }
 
-model Professor {
-  id      String      @default(cuid()) @id
-  name    String
-  professorId String  @unique @map(name: "professor_id")
-  courses Course[]
-  posts Post[]        @relation("WrittenPosts")
-  createdAt DateTime  @default(now()) @map(name: "created_at")
+enum Role {
+  STUDENT
+  PROFESSOR
 }
