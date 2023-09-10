@@ -41,6 +41,7 @@ export default function QuillEditor() {
 		<>
 			<label htmlFor="post-title">제목</label>
 			<input
+				className="w-1/2"
 				type="text"
 				id="post-title"
 				placeholder="제목"
@@ -48,13 +49,15 @@ export default function QuillEditor() {
 				onChange={onChangeTitle}
 				required
 			/>
-			<ReactQuill
-				theme="snow"
-				value={value}
-				onChange={setValue}
-				ref={editorRef}
-			/>
-			<button type="button" onClick={onSave}>
+			<div className="w-1/2">
+				<ReactQuill
+					theme="snow"
+					value={value}
+					onChange={setValue}
+					ref={editorRef}
+				/>
+			</div>
+			<button type="button" className="mt-[50px] w-fit" onClick={onSave}>
 				저장
 			</button>
 		</>

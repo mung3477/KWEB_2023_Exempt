@@ -13,7 +13,9 @@ export default function Landing() {
 	return (
 		<main className="w-fit flex flex-col m-auto">
 			<SignInForm />
-			<Link href={"/signup"}>Sign up</Link>
+			<Link href={"/signup"} className="mt-[16px] text-center border">
+				회원가입
+			</Link>
 		</main>
 	);
 }

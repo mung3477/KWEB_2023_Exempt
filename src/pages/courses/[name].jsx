@@ -1,13 +1,14 @@
 import Link from "next/link";
 import prisma from "lib/prisma";
 import { useAuthStore } from "@/stores/auth";
+import { Navbar } from "@/components/app";
 
 export default function CoursePage({ posts, courseName }) {
 	const { id, role } = useAuthStore((state) => state);
-	console.log(posts);
 
 	return (
 		<>
+			<Navbar />
 			<h1>게시물</h1>
 			<ul>
 				{posts.map((post) => (
@@ -21,6 +22,7 @@ export default function CoursePage({ posts, courseName }) {
 			{role === "PROFESSOR" && (
 				<Link
 					href={`/courses/posts/new?courseName=${courseName}&prof=${id}`}
+					className="mt-[10px] border-t w-fit"
 				>
 					새 게시물 작성
 				</Link>

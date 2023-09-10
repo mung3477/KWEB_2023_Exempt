@@ -22,15 +22,25 @@ export default function CreateNewCourse() {
 	};
 
 	return (
-		<form onSubmit={onClickCreateCourse}>
-			<label htmlFor="new-course-name">강의명</label>
+		<form
+			onSubmit={onClickCreateCourse}
+			className="mt-[20px] border-t w-fit"
+		>
+			<label htmlFor="new-course-name" className="mr-[10px]">
+				강의명
+			</label>
 			<input
 				type="text"
 				id="new-course-name"
 				value={newCourseName}
 				onChange={onChangeNewCourseName}
 			/>
-			<button type="submit">새 강의 개설</button>
+			<button
+				type="submit"
+				className="bg-slate-100 p-3 border rounded-sm"
+			>
+				새 강의 개설
+			</button>
 		</form>
 	);
 }

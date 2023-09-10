@@ -13,8 +13,7 @@ export default function Navbar() {
 	};
 
 	return (
-		<div className="w-full h-[60px] flex [&>a]:mr-[16px]">
-			<Link href="/">로그인</Link>
+		<div className="w-full flex [&>a]:mr-[16px] mb-[20px]">
 			<Link href="/courses">강의 목록</Link>
 			<button type="button" onClick={onClickLogout}>
 				로그아웃

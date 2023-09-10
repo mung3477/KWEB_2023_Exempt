@@ -53,7 +53,9 @@ export default function SignInForm() {
 				value={password}
 				onChange={onChangePassword}
 			/>
-			<button type="submit">Login</button>
+			<button type="submit" className="border mt-[10px]">
+				로그인
+			</button>
 		</form>
 	);
 }

@@ -42,7 +42,7 @@ export default function SignUpForm() {
 			});
 	};
 	return (
-		<form className="flex flex-col" onSubmit={onSubmit}>
+		<form className="flex flex-col [&>label]:mt-[16px]" onSubmit={onSubmit}>
 			<label htmlFor="signup-id">ID</label>
 			<input
 				type="text"
@@ -79,7 +79,7 @@ export default function SignUpForm() {
 				onChange={onChangeInfoId}
 				required
 			/>
-			<h3>신분</h3>
+			<h3 className="mt-[16px]">신분</h3>
 			<ul>
 				<li>
 					<label>
@@ -106,7 +106,9 @@ export default function SignUpForm() {
 					</label>
 				</li>
 			</ul>
-			<button type="submit">회원 가입</button>
+			<button type="submit" className="mt-[40px] border">
+				회원 가입
+			</button>
 		</form>
 	);
 }
