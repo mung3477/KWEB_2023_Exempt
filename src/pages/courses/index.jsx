@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { Navbar } from "@/components/app";
 import { CreateNewCourse } from "@/components/courses";
 import { useAuthStore } from "@/stores/auth";
 
 let fetchedOnlyMine = false;
 
 export default function ProfCoursesPage() {
+	const router = useRouter();
 	const { id, role, infoId } = useAuthStore((state) => state);
 	const [fetchOnlyMine, setFetchOnlyMine] = useState(false);
 	const [courses, setCourses] = useState([]);
@@ -73,6 +76,7 @@ export default function ProfCoursesPage() {
 
 	return (
 		<>
+			<Navbar />
 			<h1>{fetchedOnlyMine ? "내 " : ""}강의 목록</h1>
 			<ul>
 				{courses.map((course) => (
