@@ -7,7 +7,7 @@ import { useAuthStore } from "@/stores/auth";
 
 let fetchedOnlyMine = false;
 
-export default function ProfCoursesPage() {
+export default function CoursePage() {
 	const router = useRouter();
 	const { id, role, infoId } = useAuthStore((state) => state);
 	const [fetchOnlyMine, setFetchOnlyMine] = useState(false);
