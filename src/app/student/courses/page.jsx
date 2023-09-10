@@ -1,5 +1,7 @@
+import { server } from "config";
+
 export default async function CoursesPage() {
-	const res = await fetch("http://localhost:3000/api/courses");
+	const res = await fetch(`${server}/api/courses`);
 	const data = await res.json();
 	const courses = data.result;
 	console.log(courses);
