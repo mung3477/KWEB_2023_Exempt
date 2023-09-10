@@ -19,15 +19,15 @@ model Course {
   students    User[]      @relation("attended")
   createdAt   DateTime    @default(now()) @map(name: "created_at")
 
-  @@unique([id, professorId])
+  @@unique([name, professorId])
 }
 
 model Post {
   id        String        @default(cuid()) @id
   title     String
   content   String?
-  course     Course       @relation("PostsOnCourse", fields: [courseId, authorId], references: [id, professorId])
-  courseId   Int
+  course     Course       @relation("PostsOnCourse", fields: [courseName, authorId], references: [name, professorId])
+  courseName   String
   authorId  String
   createdAt DateTime      @default(now()) @map(name: "created_at")
   updatedAt DateTime      @updatedAt @map(name: "updated_at")
