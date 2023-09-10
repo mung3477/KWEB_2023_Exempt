@@ -1,7 +1,9 @@
 import Link from "next/link";
 import prisma from "lib/prisma";
+import { useAuthStore } from "@/stores/auth";
 
-export default function CoursePage({ posts }) {
+export default function CoursePage({ posts, courseName }) {
+	const { id, role } = useAuthStore((state) => state);
 	console.log(posts);
 
 	return (
@@ -16,6 +18,13 @@ export default function CoursePage({ posts }) {
 					</li>
 				))}
 			</ul>
+			{role === "PROFESSOR" && (
+				<Link
+					href={`/courses/posts/new?courseName=${courseName}&prof=${id}`}
+				>
+					새 게시물 작성
+				</Link>
+			)}
 		</>
 	);
 }
@@ -34,6 +43,7 @@ export const getServerSideProps = async ({ params }) => {
 	return {
 		props: {
 			posts,
+			courseName: params.name,
 		},
 	};
 };

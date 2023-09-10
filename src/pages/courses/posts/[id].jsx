@@ -1,4 +1,3 @@
-import Link from "next/link";
 import prisma from "lib/prisma";
 
 export default function CoursePage({ post }) {
@@ -6,7 +5,7 @@ export default function CoursePage({ post }) {
 
 	return (
 		<>
-			<h1>게시물</h1>
+			<h1>{post.title}</h1>
 			<div dangerouslySetInnerHTML={{ __html: post.content }} />
 		</>
 	);

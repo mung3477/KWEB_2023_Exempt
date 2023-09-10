@@ -53,9 +53,7 @@ export default function ProfCoursesPage() {
 
 	return (
 		<>
-			<h1>
-				{role === "PROFESSOR" || fetchedOnlyMine ? "내 " : ""}강의 목록
-			</h1>
+			<h1>{fetchedOnlyMine ? "내 " : ""}강의 목록</h1>
 			<ul>
 				{courses.map((course) => (
 					<li key={course.id}>
