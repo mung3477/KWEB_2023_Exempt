@@ -1,9 +1,8 @@
-import { server } from "config";
+import { GETCourses } from "@/app/api/courses/route";
 
 export default async function CoursesPage() {
-	const res = await fetch(`${server}/api/courses`);
-	const data = await res.json();
-	const courses = data.result;
+	const res = await GETCourses();
+	const { courses } = await res.json();
 	console.log(courses);
 	return (
 		<ul>
